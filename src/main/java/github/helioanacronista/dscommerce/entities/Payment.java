@@ -1,10 +1,19 @@
 package github.helioanacronista.dscommerce.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
 @Table(name = "tb_payment")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Payment {
 
     @Id
@@ -14,41 +23,10 @@ public class Payment {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant moment;
 
+    //associacoes -->
     @OneToOne
     @MapsId
     private Order order;
 
 
-    public Payment(Long id, Instant moment, Order order) {
-        this.id = id;
-        this.moment = moment;
-        this.order = order;
-    }
-
-    public Payment() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Instant getMoment() {
-        return moment;
-    }
-
-    public void setMoment(Instant moment) {
-        this.moment = moment;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }
