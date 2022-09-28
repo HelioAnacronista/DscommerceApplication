@@ -29,7 +29,6 @@ public class Order {
 
     private OrderStatus status;
 
-    //associacoes -->
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -43,4 +42,6 @@ public class Order {
     public List<Product> getProducts () {
         return items.stream().map(x -> x.getProduct()).toList();
     }
+
+
 }

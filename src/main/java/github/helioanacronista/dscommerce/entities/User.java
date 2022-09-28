@@ -31,7 +31,6 @@ public class User {
     private LocalDate birthDate;
     private String password;
 
-    //associacoes -->
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

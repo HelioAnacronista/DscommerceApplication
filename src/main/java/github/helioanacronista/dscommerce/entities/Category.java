@@ -23,7 +23,6 @@ public class Category {
 
     private String name;
 
-    //associacoes -->
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 

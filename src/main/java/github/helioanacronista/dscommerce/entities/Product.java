@@ -31,11 +31,11 @@ public class Product {
 
     private String imgUrl;
 
-    //associacoes -->
+    
     @ManyToMany
     @JoinTable(name = "tb_product_category",
-            joinColumns = @JoinColumn(name = "product_id"), //aonde estou
-            inverseJoinColumns = @JoinColumn(name = "category_id")) //o assicao q precisa ser feita
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "id.product")
@@ -44,4 +44,6 @@ public class Product {
     public List<Order> getOrders () {
         return items.stream().map(x -> x.getOrder()).toList();
     }
+
+
 }
