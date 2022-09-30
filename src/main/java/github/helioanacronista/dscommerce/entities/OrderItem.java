@@ -12,13 +12,15 @@ import javax.persistence.Table;
 public class OrderItem {
 
     @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    private final OrderItemPK id = new OrderItemPK();
 
 
-    @Setter@Getter
+    @Setter
+    @Getter
     private Integer quantity;
 
-    @Setter@Getter
+    @Setter
+    @Getter
     private Double price;
 
     public OrderItem() {
@@ -36,7 +38,7 @@ public class OrderItem {
     }
 
     public void setOrder(Order order) {
-         id.setOrder(order);
+        id.setOrder(order);
     }
 
     public Product getProduct() {

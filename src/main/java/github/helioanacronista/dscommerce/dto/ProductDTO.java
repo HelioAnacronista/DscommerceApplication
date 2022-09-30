@@ -1,14 +1,13 @@
 package github.helioanacronista.dscommerce.dto;
 
 import github.helioanacronista.dscommerce.entities.Product;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor

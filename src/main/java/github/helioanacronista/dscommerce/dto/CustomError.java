@@ -9,7 +9,8 @@ import java.time.Instant;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter@Setter
+@Getter
+@Setter
 public class CustomError {
 
     private Instant timestamp;

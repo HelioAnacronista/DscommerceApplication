@@ -1,12 +1,12 @@
 package github.helioanacronista.dscommerce.entities;
 
 import github.helioanacronista.dscommerce.enums.OrderStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Order {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
-    public List<Product> getProducts () {
+    public List<Product> getProducts() {
         return items.stream().map(x -> x.getProduct()).toList();
     }
 
