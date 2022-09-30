@@ -3,11 +3,14 @@ package github.helioanacronista.dscommerce.services;
 import github.helioanacronista.dscommerce.dto.ProductDTO;
 import github.helioanacronista.dscommerce.entities.Product;
 import github.helioanacronista.dscommerce.repository.ProductRepository;
+import github.helioanacronista.dscommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById (Long id) {
-       Product product = productRepository.findById(id).get();
+       Product product = productRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Recurso não encontrado"));
        return new ProductDTO(product);
     }
 
