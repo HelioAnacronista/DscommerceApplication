@@ -3,15 +3,21 @@ package github.helioanacronista.dscommerce.services;
 import github.helioanacronista.dscommerce.dto.ProductDTO;
 import github.helioanacronista.dscommerce.entities.Product;
 import github.helioanacronista.dscommerce.repository.ProductRepository;
+import github.helioanacronista.dscommerce.services.exceptions.DataBaseNotFoundException;
 import github.helioanacronista.dscommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Service
@@ -42,15 +48,27 @@ public class ProductService {
 
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
-        Product entity = productRepository.getReferenceById(id);
-       copyDtoToEntity(dto, entity);
-        entity = productRepository.save(entity);
-        return new ProductDTO(entity);
+        try {
+            Product entity = productRepository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = productRepository.save(entity);
+            return new ProductDTO(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Recuso não encontrado");
+        }
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete (Long id) {
-        productRepository.deleteById(id);
+        try {
+            productRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Recuso não encontrado");
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseNotFoundException("Falha de integridade refencial");
+        }
     }
 
     //Copia o dto e transforma em entidade produto
